@@ -26,6 +26,18 @@ app.include_router(historial.router)
 app.include_router(demos.router)
 app.include_router(ws.router)
 
+from app.database import DatabaseManager
+
+@app.get("/health", tags=["Monitoreo"])
+def health_check():
+    try:
+        with DatabaseManager.get_connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute("SELECT 1")
+        return {"status": "ok", "database": "conectado"}
+    except Exception as e:
+        return {"status": "error", "database": str(e)}
+
 
 if __name__ == "__main__":
     import uvicorn
