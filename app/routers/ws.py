@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["WebSocket"])
 
-# Mapeo descriptivo para los 9 comandos registrados en la BD para el vehículo 1
 NOMBRES_COMANDOS = {
     1: "AVANZAR",
     2: "RETROCEDER",
@@ -35,9 +34,9 @@ async def websocket_endpoint(websocket: WebSocket, vehiculo_id: int):
             # Marcar el vehículo como conectado en la BD (conectado = True)
             if hasattr(repo, "sp_actualizar_estado"):
                 repo.sp_actualizar_estado(
-                    p_id_vehiculo=vehiculo_id,
-                    p_id_comando=None,
-                    p_conectado=True,
+                    id_vehiculo=vehiculo_id,
+                    id_comando=None,
+                    conectado=True,
                 )
                 conn.commit()
 
@@ -80,9 +79,9 @@ async def websocket_endpoint(websocket: WebSocket, vehiculo_id: int):
                         repo = StoredProcedureRepository(conn)
                         if hasattr(repo, "sp_actualizar_estado"):
                             repo.sp_actualizar_estado(
-                                p_id_vehiculo=vehiculo_id,
-                                p_id_comando=comando_num,
-                                p_conectado=True,
+                                id_vehiculo=vehiculo_id,
+                                id_comando=comando_num,
+                                conectado=True,
                             )
                             conn.commit()
                 except Exception as db_err:
@@ -115,9 +114,9 @@ def _marcar_desconexion_db(vehiculo_id: int):
             repo = StoredProcedureRepository(conn)
             if hasattr(repo, "sp_actualizar_estado"):
                 repo.sp_actualizar_estado(
-                    p_id_vehiculo=vehiculo_id,
-                    p_id_comando=None,
-                    p_conectado=False,
+                    id_vehiculo=vehiculo_id,
+                    id_comando=None,
+                    conectado=False,
                 )
                 conn.commit()
     except Exception as e:
