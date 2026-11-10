@@ -12,7 +12,9 @@ class ComandoMovimiento(IntEnum):
     BAJAR_BRAZO = 6
     ABRIR_PALA = 7
     CERRAR_PALA = 8
-    DETENER = 9
+    DETENER = 11
+    LUZ = 9
+    SONIDO = 10
 
 
 class VehiculoBase(BaseModel):

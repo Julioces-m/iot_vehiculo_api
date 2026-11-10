@@ -17,7 +17,9 @@ NOMBRES_COMANDOS = {
     6: "BAJAR_BRAZO",
     7: "ABRIR_PALA",
     8: "CERRAR_PALA",
-    9: "DETENER",
+    11: "DETENER",
+    9: "LUZ",
+    10: "SONIDO",
 }
 
 
